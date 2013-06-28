@@ -24,8 +24,8 @@ lib
 CPAN
 Common
 Index
-Mirror
 LocalPackage
 MetaDB
 Mux
 Ordered
+Mirror

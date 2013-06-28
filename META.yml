@@ -13,10 +13,11 @@ build_requires:
   Test::FailWarnings: 0
   Test::Fatal: 0
   Test::More: 0.96
+  lib: 0
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300034, CPAN::Meta::Converter version 2.131560'
+generated_by: 'Dist::Zilla version 4.300035, CPAN::Meta::Converter version 2.131560'
 license: apache
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -33,19 +34,19 @@ no_index:
 provides:
   CPAN::Common::Index:
     file: lib/CPAN/Common/Index.pm
-    version: 0.001
+    version: 0.002
   CPAN::Common::Index::LocalPackage:
     file: lib/CPAN/Common/Index/LocalPackage.pm
-    version: 0.001
+    version: 0.002
   CPAN::Common::Index::MetaDB:
     file: lib/CPAN/Common/Index/MetaDB.pm
-    version: 0.001
+    version: 0.002
   CPAN::Common::Index::Mirror:
     file: lib/CPAN/Common/Index/Mirror.pm
-    version: 0.001
+    version: 0.002
   CPAN::Common::Index::Mux::Ordered:
     file: lib/CPAN/Common/Index/Mux/Ordered.pm
-    version: 0.001
+    version: 0.002
 requires:
   CPAN::DistnameInfo: 0
   CPAN::Meta::YAML: 0
@@ -57,7 +58,7 @@ requires:
   IO::Uncompress::Gunzip: 0
   Module::Load: 0
   Path::Tiny: 0
-  Search::Dict: 0
+  Search::Dict: 1.07
   Tie::Handle::SkipHeader: 0
   URI: 0
   parent: 0
@@ -68,4 +69,4 @@ resources:
   bugtracker: https://github.com/dagolden/cpan-common-index/issues
   homepage: https://metacpan.org/release/CPAN-Common-Index
   repository: git://github.com/dagolden/cpan-common-index.git
-version: 0.001
+version: 0.002

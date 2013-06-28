@@ -4,7 +4,7 @@ use warnings;
 
 package CPAN::Common::Index::Mirror;
 # ABSTRACT: Search index via CPAN mirror flatfiles
-our $VERSION = '0.001'; # VERSION
+our $VERSION = '0.002'; # VERSION
 
 use parent 'CPAN::Common::Index';
 
@@ -14,7 +14,7 @@ use File::Basename ();
 use File::Fetch;
 use File::Temp 0.19; # newdir
 use IO::Uncompress::Gunzip ();
-use Search::Dict;
+use Search::Dict 1.07;
 use Tie::Handle::SkipHeader;
 use URI;
 
@@ -122,7 +122,8 @@ sub search_packages {
 
     my $index_path = $self->cached_package;
     die "Can't read $index_path" unless -r $index_path;
-    tie *PD, 'Tie::Handle::SkipHeader', "<", $index_path;
+    tie *PD, 'Tie::Handle::SkipHeader', "<", $index_path
+        or die "Can't tie $index_path: $!";
 
     # Convert scalars or regexps to subs
     my $rules;
@@ -257,7 +258,7 @@ CPAN::Common::Index::Mirror - Search index via CPAN mirror flatfiles
 
 =head1 VERSION
 
-version 0.001
+version 0.002
 
 =head1 SYNOPSIS
 

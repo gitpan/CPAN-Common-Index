@@ -33,6 +33,7 @@ my @modules = qw(
   Test::More
   Tie::Handle::SkipHeader
   URI
+  lib
   parent
   perl
   strict

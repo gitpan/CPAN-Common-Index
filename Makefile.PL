@@ -30,7 +30,7 @@ my %WriteMakefileArgs = (
     "IO::Uncompress::Gunzip" => 0,
     "Module::Load" => 0,
     "Path::Tiny" => 0,
-    "Search::Dict" => 0,
+    "Search::Dict" => "1.07",
     "Tie::Handle::SkipHeader" => 0,
     "URI" => 0,
     "parent" => 0,
@@ -47,9 +47,10 @@ my %WriteMakefileArgs = (
     "Test::Deep" => 0,
     "Test::FailWarnings" => 0,
     "Test::Fatal" => 0,
-    "Test::More" => "0.96"
+    "Test::More" => "0.96",
+    "lib" => 0
   },
-  "VERSION" => "0.001",
+  "VERSION" => "0.002",
   "test" => {
     "TESTS" => "t/*.t"
   }
