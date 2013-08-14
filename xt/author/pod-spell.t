@@ -20,12 +20,15 @@ uri
 David
 Golden
 dagolden
+Tatsuhiko
+Miyagawa
+miyagawa
 lib
 CPAN
 Common
 Index
-LocalPackage
+Mirror
 MetaDB
 Mux
 Ordered
-Mirror
+LocalPackage

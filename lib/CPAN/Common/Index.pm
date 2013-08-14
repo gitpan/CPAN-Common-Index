@@ -4,7 +4,7 @@ use warnings;
 
 package CPAN::Common::Index;
 # ABSTRACT: Common library for searching CPAN modules, authors and distributions
-our $VERSION = '0.002'; # VERSION
+our $VERSION = '0.003'; # VERSION
 
 use Carp ();
 
@@ -97,7 +97,7 @@ CPAN::Common::Index - Common library for searching CPAN modules, authors and dis
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 
@@ -285,6 +285,10 @@ L<https://github.com/dagolden/cpan-common-index>
 =head1 AUTHOR
 
 David Golden <dagolden@cpan.org>
+
+=head1 CONTRIBUTOR
+
+Tatsuhiko Miyagawa <miyagawa@bulknews.net>
 
 =head1 COPYRIGHT AND LICENSE
 

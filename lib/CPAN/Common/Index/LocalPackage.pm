@@ -4,7 +4,7 @@ use warnings;
 
 package CPAN::Common::Index::LocalPackage;
 # ABSTRACT: Search index via custom local CPAN package flatfile
-our $VERSION = '0.002'; # VERSION
+our $VERSION = '0.003'; # VERSION
 
 use parent 'CPAN::Common::Index::Mirror';
 
@@ -80,14 +80,14 @@ CPAN::Common::Index::LocalPackage - Search index via custom local CPAN package f
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 
   use CPAN::Common::Index::LocalPackage;
 
   $index = CPAN::Common::Index::LocalPackage->new(
-    source => "mypackages.details.txt",
+    { source => "mypackages.details.txt" }
   );
 
 =head1 DESCRIPTION

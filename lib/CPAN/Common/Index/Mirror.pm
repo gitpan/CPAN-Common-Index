@@ -4,7 +4,7 @@ use warnings;
 
 package CPAN::Common::Index::Mirror;
 # ABSTRACT: Search index via CPAN mirror flatfiles
-our $VERSION = '0.002'; # VERSION
+our $VERSION = '0.003'; # VERSION
 
 use parent 'CPAN::Common::Index';
 
@@ -55,6 +55,11 @@ my %TEST_GENERATORS = (
         my $re = ref $arg eq 'Regexp' ? $arg : qr/\A\Q$arg\E\z/i;
         return sub { $_[0] =~ $re };
     },
+    regexp_nocase => sub {
+        my $arg = shift;
+        my $re = ref $arg eq 'Regexp' ? $arg : qr/\A\Q$arg\E\z/;
+        return sub { $_[0] =~ $re };
+    },
     version => sub {
         my $arg = shift;
         my $v   = version->parse($arg);
@@ -66,9 +71,9 @@ my %TEST_GENERATORS = (
 
 my %QUERY_TYPES = (
     # package search
-    package => 'regexp',
+    package => 'regexp_nocase',
     version => 'version',
-    dist    => 'regexp',
+    dist    => 'regexp_nocase',
 
     # author search
     id       => 'regexp', # XXX need to add "alias " first
@@ -258,7 +263,7 @@ CPAN::Common::Index::Mirror - Search index via CPAN mirror flatfiles
 
 =head1 VERSION
 
-version 0.002
+version 0.003
 
 =head1 SYNOPSIS
 
@@ -269,7 +274,7 @@ version 0.002
 
   # custom mirror
   $index = CPAN::Common::Index::Mirror->new(
-    mirror => "http://cpan.cpantesters.org"
+    { mirror => "http://cpan.cpantesters.org" }
   );
 
 =head1 DESCRIPTION
