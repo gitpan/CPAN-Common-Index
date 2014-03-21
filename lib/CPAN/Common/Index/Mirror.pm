@@ -4,9 +4,11 @@ use warnings;
 
 package CPAN::Common::Index::Mirror;
 # ABSTRACT: Search index via CPAN mirror flatfiles
-our $VERSION = '0.003'; # VERSION
+our $VERSION = '0.004'; # VERSION
 
 use parent 'CPAN::Common::Index';
+
+use Class::Tiny qw/cache mirror/;
 
 use Carp;
 use CPAN::DistnameInfo;
@@ -18,29 +20,37 @@ use Search::Dict 1.07;
 use Tie::Handle::SkipHeader;
 use URI;
 
+# =attr mirror
+#
+# URI to a CPAN mirror.  Defaults to C<http://www.cpan.org/>.
+#
+# =attr cache
+#
+# Path to a local directory to store copies of the source indices.  Defaults to a
+# temporary directory if not specified.
+#
+# =cut
 
-sub attributes {
-    return {
-        cache  => sub { File::Temp->newdir },
-        mirror => "http://www.cpan.org/",
-    };
-}
-
-sub validate_attributes {
-    my ($self) = @_;
+sub BUILD {
+    my $self = shift;
 
     # cache directory needs to exist
     my $cache = $self->cache;
+    $cache = File::Temp->newdir
+      unless defined $cache;
     if ( !-d $cache ) {
         Carp::croak("Cache directory '$cache' does not exist");
     }
+    $self->cache($cache);
 
-    # ensure URL ends in '/'
+    # ensure mirror URL ends in '/'
     my $mirror = $self->mirror;
+    $mirror = "http://www.cpan.org/"
+      unless defined $mirror;
     $mirror =~ s{/?$}{/};
     $self->mirror($mirror);
 
-    return 1;
+    return;
 }
 
 my %INDICES = (
@@ -50,12 +60,12 @@ my %INDICES = (
 
 # XXX refactor out from subs below
 my %TEST_GENERATORS = (
-    regexp => sub {
+    regexp_nocase => sub {
         my $arg = shift;
         my $re = ref $arg eq 'Regexp' ? $arg : qr/\A\Q$arg\E\z/i;
         return sub { $_[0] =~ $re };
     },
-    regexp_nocase => sub {
+    regexp => sub {
         my $arg = shift;
         my $re = ref $arg eq 'Regexp' ? $arg : qr/\A\Q$arg\E\z/;
         return sub { $_[0] =~ $re };
@@ -71,14 +81,14 @@ my %TEST_GENERATORS = (
 
 my %QUERY_TYPES = (
     # package search
-    package => 'regexp_nocase',
+    package => 'regexp',
     version => 'version',
-    dist    => 'regexp_nocase',
+    dist    => 'regexp',
 
     # author search
-    id       => 'regexp', # XXX need to add "alias " first
-    fullname => 'regexp',
-    email    => 'regexp',
+    id       => 'regexp_nocase', # XXX need to add "alias " first
+    fullname => 'regexp_nocase',
+    email    => 'regexp_nocase',
 );
 
 sub cached_package {
@@ -128,7 +138,7 @@ sub search_packages {
     my $index_path = $self->cached_package;
     die "Can't read $index_path" unless -r $index_path;
     tie *PD, 'Tie::Handle::SkipHeader', "<", $index_path
-        or die "Can't tie $index_path: $!";
+      or die "Can't tie $index_path: $!";
 
     # Convert scalars or regexps to subs
     my $rules;
@@ -246,7 +256,9 @@ sub _match_mailrc_line {
     };
 }
 
-__PACKAGE__->_build_accessors;
+sub DESTROY { untie *PD }
+
+1;
 
 
 # vim: ts=4 sts=4 sw=4 et:
@@ -255,7 +267,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -263,7 +275,7 @@ CPAN::Common::Index::Mirror - Search index via CPAN mirror flatfiles
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 
@@ -297,7 +309,7 @@ Path to a local directory to store copies of the source indices.  Defaults to a
 temporary directory if not specified.
 
 =for Pod::Coverage attributes validate_attributes search_packages search_authors
-cached_package cached_mailrc
+cached_package cached_mailrc BUILD
 
 =head1 AUTHOR
 

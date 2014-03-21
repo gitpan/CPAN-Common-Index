@@ -4,17 +4,51 @@ use warnings;
 
 package CPAN::Common::Index::Mux::Ordered;
 # ABSTRACT: Consult indices in order and return the first result
-our $VERSION = '0.003'; # VERSION
+our $VERSION = '0.004'; # VERSION
 
 use parent 'CPAN::Common::Index';
 
+use Class::Tiny qw/resolvers/;
+
 use Module::Load ();
 
+# =attr resolvers
+#
+#     An array reference of CPAN::Common::Index::* objects
+#
+# =cut
 
-sub attributes {
-    return { resolvers => sub { [] }, };
+sub BUILD {
+    my $self = shift;
+
+    my $resolvers = $self->resolvers;
+    $resolvers = [] unless defined $resolvers;
+    if ( ref $resolvers ne 'ARRAY' ) {
+        Carp::croak("The 'resolvers' argument must be an array reference");
+    }
+    for my $r (@$resolvers) {
+        if ( !eval { $r->isa("CPAN::Common::Index") } ) {
+            Carp::croak("Resolver '$r' is not a CPAN::Common::Index object");
+        }
+    }
+    $self->resolvers($resolvers);
+
+    return;
 }
 
+# =method assemble
+#
+#     $index = CPAN::Common::Index::Mux::Ordered->assemble(
+#         MetaDB => {},
+#         Mirror => { mirror => "http://www.cpan.org" },
+#     );
+#
+# This class method provides a shorthand for constructing a multiplexer.
+# The arguments must be pairs of subclass suffixes and arguments.  For
+# example, "MetaDB" means to use "CPAN::Common::Index::MetaDB".  Empty
+# arguments must be given as an empty hash reference.
+#
+# =cut
 
 sub assemble {
     my ( $class, @backends ) = @_;
@@ -36,14 +70,6 @@ sub assemble {
 sub validate_attributes {
     my ($self) = @_;
     my $resolvers = $self->resolvers;
-    if ( ref $resolvers ne 'ARRAY' ) {
-        Carp::croak("The 'resolvers' argument must be an array reference");
-    }
-    for my $r ( @{ $self->resolvers } ) {
-        if ( !eval { $r->isa("CPAN::Common::Index") } ) {
-            Carp::croak("Resolver '$r' is not a CPAN::Common::Index object");
-        }
-    }
     return 1;
 }
 
@@ -103,7 +129,7 @@ sub search_authors {
     return wantarray ? @found : $found[0];
 }
 
-__PACKAGE__->_build_accessors;
+1;
 
 
 # vim: ts=4 sts=4 sw=4 et:
@@ -112,7 +138,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -120,7 +146,7 @@ CPAN::Common::Index::Mux::Ordered - Consult indices in order and return the firs
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 
@@ -160,7 +186,7 @@ The arguments must be pairs of subclass suffixes and arguments.  For
 example, "MetaDB" means to use "CPAN::Common::Index::MetaDB".  Empty
 arguments must be given as an empty hash reference.
 
-=for Pod::Coverage attributes validate_attributes search_packages search_authors
+=for Pod::Coverage attributes validate_attributes search_packages search_authors BUILD
 
 =head1 AUTHOR
 

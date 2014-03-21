@@ -4,28 +4,32 @@ use warnings;
 
 package CPAN::Common::Index::MetaDB;
 # ABSTRACT: Search index via CPAN MetaDB
-our $VERSION = '0.003'; # VERSION
+our $VERSION = '0.004'; # VERSION
 
 use parent 'CPAN::Common::Index';
+
+use Class::Tiny qw/uri/;
 
 use Carp;
 use CPAN::Meta::YAML;
 use HTTP::Tiny;
 
+# =attr uri
+#
+# A URI for the endpoint of a CPAN MetaDB server. The
+# default is L<http://cpanmetadb.plackperl.org/v1.0/>.
+#
+# =cut
 
-sub attributes {
-    return { uri => "http://cpanmetadb.plackperl.org/v1.0/" };
-}
-
-sub validate_attributes {
-    my ($self) = @_;
-
+sub BUILD {
+    my $self = shift;
+    my $uri  = $self->uri;
+    $uri = "http://cpanmetadb.plackperl.org/v1.0/"
+      unless defined $uri;
     # ensure URI ends in '/'
-    my $uri = $self->uri;
     $uri =~ s{/?$}{/};
     $self->uri($uri);
-
-    return 1;
+    return;
 }
 
 sub search_packages {
@@ -61,7 +65,7 @@ sub index_age { return time };    # pretend always current
 
 sub search_authors { return };    # not supported
 
-__PACKAGE__->_build_accessors;
+1;
 
 
 # vim: ts=4 sts=4 sw=4 et:
@@ -70,7 +74,7 @@ __END__
 
 =pod
 
-=encoding utf-8
+=encoding UTF-8
 
 =head1 NAME
 
@@ -78,7 +82,7 @@ CPAN::Common::Index::MetaDB - Search index via CPAN MetaDB
 
 =head1 VERSION
 
-version 0.003
+version 0.004
 
 =head1 SYNOPSIS
 
@@ -101,7 +105,7 @@ takes a package name and returns the corresponding version and distribution.
 A URI for the endpoint of a CPAN MetaDB server. The
 default is L<http://cpanmetadb.plackperl.org/v1.0/>.
 
-=for Pod::Coverage attributes validate_attributes search_packages search_authors
+=for Pod::Coverage attributes validate_attributes search_packages search_authors BUILD
 
 =head1 AUTHOR
 

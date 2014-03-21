@@ -3,7 +3,7 @@ NAME
     and distributions
 
 VERSION
-    version 0.003
+    version 0.004
 
 SYNOPSIS
         use CPAN::Common::Index::Mux::Ordered;
@@ -38,12 +38,6 @@ DESCRIPTION
     first result.
 
 METHODS
-  new
-        $index = $class->new( \%args );
-
-    The constructor arguments must be given a hash reference. The specific
-    keys allowed are defined by each backend.
-
   search_packages (ABSTRACT)
         $result = $index->search_packages( { package => "Moose" });
         @result = $index->search_packages( \%advanced_query );
@@ -144,22 +138,24 @@ METHODS
 SUPPORT
   Bugs / Feature Requests
     Please report any bugs or feature requests through the issue tracker at
-    <https://github.com/dagolden/cpan-common-index/issues>. You will be
+    <https://github.com/dagolden/CPAN-Common-Index/issues>. You will be
     notified automatically of any progress on your issue.
 
   Source Code
     This is open source software. The code repository is available for
     public review and contribution under the terms of the license.
 
-    <https://github.com/dagolden/cpan-common-index>
+    <https://github.com/dagolden/CPAN-Common-Index>
 
-      git clone git://github.com/dagolden/cpan-common-index.git
+      git clone https://github.com/dagolden/CPAN-Common-Index.git
 
 AUTHOR
     David Golden <dagolden@cpan.org>
 
-CONTRIBUTOR
-    Tatsuhiko Miyagawa <miyagawa@bulknews.net>
+CONTRIBUTORS
+    *   Kenichi Ishigaki <ishigaki@cpan.org>
+
+    *   Tatsuhiko Miyagawa <miyagawa@bulknews.net>
 
 COPYRIGHT AND LICENSE
     This software is Copyright (c) 2013 by David Golden.

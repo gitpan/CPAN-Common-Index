@@ -53,15 +53,8 @@ subtest "constructor tests" => sub {
     # unknown argument
     eval { CPAN::Common::Index::Mirror->new( { mirror => $test_mirror, foo => 'bar' } ) };
     like(
-        $@ => qr/Unknown arguments to new\(\): foo/,
+        $@ => qr/Invalid .*? foo/,
         "Unknown argument dies with error"
-    );
-
-    # bad argument
-    eval { CPAN::Common::Index::Mirror->new( mirror => $test_mirror, foo => 'bar' ) };
-    like(
-        $@ => qr/Argument to new\(\) must be a hash reference/,
-        "Non hashref argument dies with error"
     );
 };
 
@@ -69,42 +62,42 @@ subtest 'refresh and unpack index files' => sub {
     my $index = new_mirror_index;
 
     for my $file ( $mailrc, "$mailrc.gz", $packages, "$packages.gz" ) {
-        ok( ! -e catfile($cache, $file), "$file not there" );
+        ok( !-e catfile( $cache, $file ), "$file not there" );
     }
     ok( $index->refresh_index, "refreshed index" );
     for my $file ( $mailrc, "$mailrc.gz", $packages, "$packages.gz" ) {
-        ok( -e catfile($cache, $file), "$file is there" );
+        ok( -e catfile( $cache, $file ), "$file is there" );
     }
 };
 
 # XXX test that files in cache aren't overwritten?
 
 subtest 'check index age' => sub {
-    my $index = new_mirror_index;
+    my $index   = new_mirror_index;
     my $package = $index->cached_package;
     ok( -f $package, "got the package file" );
-    my $expected_age = (stat($package))[9];
+    my $expected_age = ( stat($package) )[9];
     is( $index->index_age, $expected_age, "index_age() is correct" );
 };
 
 subtest 'find package' => sub {
     my $index = new_mirror_index;
-    test_find_package( $index );
+    test_find_package($index);
 };
 
 subtest 'search package' => sub {
     my $index = new_mirror_index;
-    test_search_package( $index );
+    test_search_package($index);
 };
 
 subtest 'find author' => sub {
     my $index = new_mirror_index;
-    test_find_author( $index );
+    test_find_author($index);
 };
 
 subtest 'search author' => sub {
     my $index = new_mirror_index;
-    test_search_author( $index );
+    test_search_author($index);
 };
 
 done_testing;
