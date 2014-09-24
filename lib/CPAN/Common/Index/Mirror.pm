@@ -4,7 +4,7 @@ use warnings;
 
 package CPAN::Common::Index::Mirror;
 # ABSTRACT: Search index via CPAN mirror flatfiles
-our $VERSION = '0.004'; # VERSION
+our $VERSION = '0.005'; # VERSION
 
 use parent 'CPAN::Common::Index';
 
@@ -20,16 +20,16 @@ use Search::Dict 1.07;
 use Tie::Handle::SkipHeader;
 use URI;
 
-# =attr mirror
-#
-# URI to a CPAN mirror.  Defaults to C<http://www.cpan.org/>.
-#
-# =attr cache
-#
-# Path to a local directory to store copies of the source indices.  Defaults to a
-# temporary directory if not specified.
-#
-# =cut
+#pod =attr mirror
+#pod
+#pod URI to a CPAN mirror.  Defaults to C<http://www.cpan.org/>.
+#pod
+#pod =attr cache
+#pod
+#pod Path to a local directory to store copies of the source indices.  Defaults to a
+#pod temporary directory if not specified.
+#pod
+#pod =cut
 
 sub BUILD {
     my $self = shift;
@@ -275,7 +275,7 @@ CPAN::Common::Index::Mirror - Search index via CPAN mirror flatfiles
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 SYNOPSIS
 

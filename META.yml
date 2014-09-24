@@ -6,18 +6,17 @@ build_requires:
   Cwd: '0'
   Exporter: '0'
   ExtUtils::MakeMaker: '0'
+  File::Spec: '0'
   File::Spec::Functions: '0'
-  List::Util: '0'
   Test::Deep: '0'
   Test::FailWarnings: '0'
   Test::Fatal: '0'
   Test::More: '0.96'
   lib: '0'
-  version: '0'
 configure_requires:
   ExtUtils::MakeMaker: '6.17'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.014, CPAN::Meta::Converter version 2.140640'
+generated_by: 'Dist::Zilla version 5.020, CPAN::Meta::Converter version 2.140640'
 license: apache
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -34,19 +33,19 @@ no_index:
 provides:
   CPAN::Common::Index:
     file: lib/CPAN/Common/Index.pm
-    version: '0.004'
+    version: '0.005'
   CPAN::Common::Index::LocalPackage:
     file: lib/CPAN/Common/Index/LocalPackage.pm
-    version: '0.004'
+    version: '0.005'
   CPAN::Common::Index::MetaDB:
     file: lib/CPAN/Common/Index/MetaDB.pm
-    version: '0.004'
+    version: '0.005'
   CPAN::Common::Index::Mirror:
     file: lib/CPAN/Common/Index/Mirror.pm
-    version: '0.004'
+    version: '0.005'
   CPAN::Common::Index::Mux::Ordered:
     file: lib/CPAN/Common/Index/Mux/Ordered.pm
-    version: '0.004'
+    version: '0.005'
 requires:
   CPAN::DistnameInfo: '0'
   CPAN::Meta::YAML: '0'
@@ -70,7 +69,7 @@ resources:
   bugtracker: https://github.com/dagolden/CPAN-Common-Index/issues
   homepage: https://github.com/dagolden/CPAN-Common-Index
   repository: https://github.com/dagolden/CPAN-Common-Index.git
-version: '0.004'
+version: '0.005'
 x_authority: cpan:DAGOLDEN
 x_contributors:
   - 'Kenichi Ishigaki <ishigaki@cpan.org>'

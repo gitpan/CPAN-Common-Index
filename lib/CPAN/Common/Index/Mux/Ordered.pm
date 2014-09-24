@@ -4,7 +4,7 @@ use warnings;
 
 package CPAN::Common::Index::Mux::Ordered;
 # ABSTRACT: Consult indices in order and return the first result
-our $VERSION = '0.004'; # VERSION
+our $VERSION = '0.005'; # VERSION
 
 use parent 'CPAN::Common::Index';
 
@@ -12,11 +12,11 @@ use Class::Tiny qw/resolvers/;
 
 use Module::Load ();
 
-# =attr resolvers
-#
-#     An array reference of CPAN::Common::Index::* objects
-#
-# =cut
+#pod =attr resolvers
+#pod
+#pod     An array reference of CPAN::Common::Index::* objects
+#pod
+#pod =cut
 
 sub BUILD {
     my $self = shift;
@@ -36,19 +36,19 @@ sub BUILD {
     return;
 }
 
-# =method assemble
-#
-#     $index = CPAN::Common::Index::Mux::Ordered->assemble(
-#         MetaDB => {},
-#         Mirror => { mirror => "http://www.cpan.org" },
-#     );
-#
-# This class method provides a shorthand for constructing a multiplexer.
-# The arguments must be pairs of subclass suffixes and arguments.  For
-# example, "MetaDB" means to use "CPAN::Common::Index::MetaDB".  Empty
-# arguments must be given as an empty hash reference.
-#
-# =cut
+#pod =method assemble
+#pod
+#pod     $index = CPAN::Common::Index::Mux::Ordered->assemble(
+#pod         MetaDB => {},
+#pod         Mirror => { mirror => "http://www.cpan.org" },
+#pod     );
+#pod
+#pod This class method provides a shorthand for constructing a multiplexer.
+#pod The arguments must be pairs of subclass suffixes and arguments.  For
+#pod example, "MetaDB" means to use "CPAN::Common::Index::MetaDB".  Empty
+#pod arguments must be given as an empty hash reference.
+#pod
+#pod =cut
 
 sub assemble {
     my ( $class, @backends ) = @_;
@@ -146,7 +146,7 @@ CPAN::Common::Index::Mux::Ordered - Consult indices in order and return the firs
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 SYNOPSIS
 

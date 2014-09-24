@@ -4,7 +4,7 @@ use warnings;
 
 package CPAN::Common::Index::LocalPackage;
 # ABSTRACT: Search index via custom local CPAN package flatfile
-our $VERSION = '0.004'; # VERSION
+our $VERSION = '0.005'; # VERSION
 
 use parent 'CPAN::Common::Index::Mirror';
 
@@ -14,18 +14,18 @@ use Carp;
 use IO::Uncompress::Gunzip ();
 use Path::Tiny;
 
-# =attr source (REQUIRED)
-#
-# Path to a local file in the form of 02packages.details.txt.  It may
-# be compressed with a ".gz" suffix or it may be uncompressed.
-#
-# =attr cache
-#
-# Path to a local directory to store a (possibly uncompressed) copy
-# of the source index.  Defaults to a temporary directory if not
-# specified.
-#
-# =cut
+#pod =attr source (REQUIRED)
+#pod
+#pod Path to a local file in the form of 02packages.details.txt.  It may
+#pod be compressed with a ".gz" suffix or it may be uncompressed.
+#pod
+#pod =attr cache
+#pod
+#pod Path to a local directory to store a (possibly uncompressed) copy
+#pod of the source index.  Defaults to a temporary directory if not
+#pod specified.
+#pod
+#pod =cut
 
 sub BUILD {
     my $self = shift;
@@ -87,7 +87,7 @@ CPAN::Common::Index::LocalPackage - Search index via custom local CPAN package f
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 SYNOPSIS
 

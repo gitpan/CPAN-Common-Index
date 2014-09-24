@@ -4,7 +4,7 @@ use warnings;
 
 package CPAN::Common::Index::MetaDB;
 # ABSTRACT: Search index via CPAN MetaDB
-our $VERSION = '0.004'; # VERSION
+our $VERSION = '0.005'; # VERSION
 
 use parent 'CPAN::Common::Index';
 
@@ -14,12 +14,12 @@ use Carp;
 use CPAN::Meta::YAML;
 use HTTP::Tiny;
 
-# =attr uri
-#
-# A URI for the endpoint of a CPAN MetaDB server. The
-# default is L<http://cpanmetadb.plackperl.org/v1.0/>.
-#
-# =cut
+#pod =attr uri
+#pod
+#pod A URI for the endpoint of a CPAN MetaDB server. The
+#pod default is L<http://cpanmetadb.plackperl.org/v1.0/>.
+#pod
+#pod =cut
 
 sub BUILD {
     my $self = shift;
@@ -82,7 +82,7 @@ CPAN::Common::Index::MetaDB - Search index via CPAN MetaDB
 
 =head1 VERSION
 
-version 0.004
+version 0.005
 
 =head1 SYNOPSIS
 

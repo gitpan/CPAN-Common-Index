@@ -3,7 +3,7 @@ NAME
     and distributions
 
 VERSION
-    version 0.004
+    version 0.005
 
 SYNOPSIS
         use CPAN::Common::Index::Mux::Ordered;
